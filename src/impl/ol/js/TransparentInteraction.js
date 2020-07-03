@@ -25,7 +25,9 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
 
     this.pos = false;
     this.radius = (optionsE.radius || 100);
-
+    this.border =  optionsE.border;
+    this.borderColor = optionsE.borderColor;
+  
     if (optionsE.layers) {
       optionsE.layers = [optionsE.layers];
       const layer = optionsE.layers.map(layer => layer.getImpl().getOL3Layer())
@@ -42,9 +44,7 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
       for (i = 0; i < this.layers_.length; i += 1) {
         if (this.layers_[i].precompose) ol.Observable.unByKey(this.layers_[i].precompose);
         if (this.layers_[i].postcompose) ol.Observable.unByKey(this.layers_[i].postcompose);
-        /* eslint-disable */
         this.layers_[i].precompose = this.layers_[i].postcompose = null;
-        /* eslint-enable */
       }
       this.getMap().renderSync();
     }
@@ -72,9 +72,7 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
    * @param {ol.layer|Array<ol.layer>} layer to clip
    */
   addLayer(layers) {
-    /* eslint-disable */
     if (!(layers instanceof Array)) layers = [layers];
-    /* eslint-enable */
     for (let i = 0; i < layers.length; i += 1) {
       const l = { layer: layers[i] };
       if (this.getMap()) {
@@ -90,9 +88,7 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
    * @param {ol.layer|Array<ol.layer>} layer to clip
    */
   removeLayer(layers) {
-    /* eslint-disable */
     if (!(layers instanceof Array)) layers = [layers];
-    /* eslint-enable */
     for (let i = 0; i < layers.length; i += 1) {
       let k;
       for (k = 0; k < this.layers_.length; k += 1) {
@@ -118,9 +114,8 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     } else if (e && e instanceof Array) {
       this.pos = e;
     } else {
-      /* eslint-disable */
       e = [-10000000, -10000000];
-      /* eslint-enable */
+
     }
     if (this.getMap()) this.getMap().renderSync();
   }
@@ -132,9 +127,17 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     const ratio = e.frameState.pixelRatio;
 
     ctx.save();
+    if(this.border){
+      ctx.beginPath();
+      ctx.arc(this.pos[0] * ratio, this.pos[1] * ratio, this.radius+2.5 * ratio, 0, 2 * Math.PI);
+      ctx.lineWidth = 5;
+      ctx.strokeStyle = this.borderColor;
+      ctx.stroke();
+    }
     ctx.beginPath();
     ctx.arc(this.pos[0] * ratio, this.pos[1] * ratio, this.radius * ratio, 0, 2 * Math.PI);
     ctx.clip();
+    
   }
 
   /* @private

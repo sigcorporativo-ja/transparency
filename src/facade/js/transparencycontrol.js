@@ -49,7 +49,18 @@ export default class TransparencyControl extends M.Control {
      * @type {M.layer}
      */
     this.layerSelected = null;
-
+    /**
+     * Enable/disable Border
+     * @private
+     * @type {boolean}
+     */
+    this.border = values.border;
+    /**
+     * Border color selected
+     * @private
+     * @type {string}
+     */
+    this.borderColor = values.borderColor;
     /**
      * Template
      * @public
@@ -135,7 +146,12 @@ export default class TransparencyControl extends M.Control {
               return layer.name === evt.target.value
             });
             this.layerSelected = layer[0];
-            this.getImpl().effectSelected(this.layerSelected, this.radius);
+            this.getImpl().effectSelected({
+              layers: this.layerSelected,
+              radius: this.radius,
+              border: this.border,
+              borderColor: this.borderColor,
+            });
           });
         }
       }
@@ -156,7 +172,12 @@ export default class TransparencyControl extends M.Control {
       return layer instanceof Object ? { name: layer.name } : { name: layer };
     });
     this.template.querySelector('#m-transparency-transparent').classList.add('buttom-pressed');
-    this.getImpl().effectSelected(this.layerSelected, this.radius);
+    this.getImpl().effectSelected({
+      layers: this.layerSelected,
+      radius: this.radius,
+      border: this.border,
+      borderColor: this.borderColor,
+    });
     if (names.length >= 1) {
       this.template.querySelector('select').disabled = false;
       this.template.querySelector('input').disabled = false;

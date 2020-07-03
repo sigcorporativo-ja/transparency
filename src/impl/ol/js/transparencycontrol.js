@@ -31,13 +31,10 @@ export default class TransparencyControl extends M.impl.Control {
    * @param { Number } radius radius to assign
    * @api stable
    */
-  effectSelected(layers, radius) {
-    layers.setVisible(true);
-    layers.setZIndex(90000);
-    this.transparentInteraction_ = new TransparentInteraction({
-      radius,
-      layers,
-    });
+  effectSelected(options) {
+    options.layers.setVisible(true);
+    options.layers.setZIndex(90000);
+    this.transparentInteraction_ = new TransparentInteraction(options);
 
     this.olMap.addInteraction(this.transparentInteraction_);
   }
