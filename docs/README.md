@@ -30,9 +30,9 @@ Plugin que permite aplicar un efecto de transparencia a la capa seleccionada.
 
 - **radius**. Campo numérico que modifica el radio del efecto transparencia. Tiene un rango entre 30 y 200.
 
-# Eventos
+- **border**. Muestra un borde alrededor del radio. Su valor por defecto es *true*.
 
-# Otros métodos
+- **borderColor**. Indica el color que tendrá el border del radio. Su valor por defecto es *'white'*.
 
 # Ejemplos de uso
 
@@ -54,7 +54,8 @@ Insertar dos capas a través de servicio WMS.
 ```javascript
   const mp = new M.plugin.Transparency({
   position: 'TL',
-  layers: ['WMS*Redes*http://www.ideandalucia.es/wms/mta400v_2008?*Redes_energeticas', 'WMS*IGN*http://www.ign.es/wms-inspire/ign-base*IGNBaseTodo']
+  layers: ['WMS*Redes*http://www.ideandalucia.es/wms/mta400v_2008?*Redes_energeticas', 'WMS*IGN*http://www.ign.es/wms-inspire/ign-base*IGNBaseTodo'],
+  border: false,
 });
 
    map.addPlugin(mp);
@@ -73,6 +74,8 @@ map,addWMS(wms);
 const mp = new M.plugin.Transparency({
   position: 'TL',
   layers: ['AU.AdministrativeBoundary'],
+  border: true,
+  borderColor: 'red';
 });
 
    map.addPlugin(mp);

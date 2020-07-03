@@ -96,8 +96,24 @@ export default class Transparency extends M.Plugin {
       this.radius = 100; // Default value
     }
 
-
-
+    /**
+     * Enable/disable border
+     * @type {boolean}
+     * @public
+     */
+    this.border = options.border;
+    if (this.border === undefined) {
+      this.border = true;
+    }
+    
+    /**
+     * Radius border color
+     * Value: color value
+     * @type {string}
+     * @public
+     */
+    this.borderColor = options.borderColor || 'white';
+    
     /**
      * Metadata from api.json
      * @private
@@ -129,6 +145,8 @@ export default class Transparency extends M.Plugin {
       pluginOnLeft,
       layers: this.layers,
       radius: this.radius,
+      border: this.border,
+      borderColor: this.borderColor,
     };
     this.control_ = new TransparencyControl(values);
     this.controls_.push(this.control_);
@@ -156,7 +174,7 @@ export default class Transparency extends M.Plugin {
     this.control_.removeEffects();
     this.control_.removeTransparencyLayers(this.control_.getLayersNames());
     this.map_.removeControls([this.control_]);
-    [this.control_, this.panel_, this.map_, this.layers, this.radius] = [null, null, null, null, null];
+    [this.control_, this.panel_, this.map_, this.layers, this.radius, this.border, this.borderColor] = [null, null, null, null, null, null, null];
   }
 
   /**
@@ -192,9 +210,7 @@ export default class Transparency extends M.Plugin {
   getAPIRest() {
     let layersTransparency = this.control_.getLayersNames();
 
-    return `${this.name}=${this.position}${this.separatorApiJson}${layersTransparency.join(',')}${this.separatorApiJson}${this.radius}`;
-
-    // return `${this.name}=${this.position}${this.separatorApiJson}${this.layers.join(',')}${this.separatorApiJson}${this.radius}`;
+    return `${this.name}=${this.position}${this.separatorApiJson}${layersTransparency.join(',')}${this.separatorApiJson}${this.radius}${this.separatorApiJson}${this.border}${this.separatorApiJson}${this.borderColor}`;
   }
 
   /**

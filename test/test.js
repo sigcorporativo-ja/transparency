@@ -22,7 +22,8 @@ map.addWFS(wfs);
 const pluginTransparency = new Transparency({
   position: 'TR',
   layers: ['WMS*hil*http://www.ign.es/wms-inspire/unidades-administrativas?*AU.AdministrativeBoundary', 'WMTS*http://www.ign.es/wmts/pnoa-ma?*OI.OrthoimageCoverage*EPSG:25830*PNOA', 'WMTS*http://servicios.idee.es/wmts/mdt?*EL.GridCoverage*EPSG:25830*mdt'],
-  radius: ""
+  radius: "",
+  border: true,
 });
 
 

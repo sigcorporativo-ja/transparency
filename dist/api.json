@@ -21,6 +21,16 @@
         "type": "simple",
         "name": "radius",
         "position": 2
+      },
+      {
+        "type": "boolean",
+        "name": "border",
+        "position": 3
+      },
+      {
+        "type": "simple",
+        "name": "borderColor",
+        "position": 4
       }
     ]
   }],
