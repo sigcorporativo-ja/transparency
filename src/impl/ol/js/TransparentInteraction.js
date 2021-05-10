@@ -55,6 +55,8 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
       for (i = 0; i < this.layers_.length; i += 1) {
         this.layers_[i].precompose = this.layers_[i].on('precompose', this.precompose_.bind(this));
         this.layers_[i].postcompose = this.layers_[i].on('postcompose', this.postcompose_.bind(this));
+        this.layers_[i].precompose = this.layers_[i].on('prerender', this.precompose_.bind(this));
+        this.layers_[i].postcompose = this.layers_[i].on('postrender', this.postcompose_.bind(this));
       }
       map.renderSync();
     }
@@ -78,6 +80,8 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
       if (this.getMap()) {
         l.precompose = layers[i].on('precompose', this.precompose_.bind(this));
         l.postcompose = layers[i].on('postcompose', this.postcompose_.bind(this));
+        l.precompose = layers[i].on('prerender', this.precompose_.bind(this));
+        l.postcompose = layers[i].on('postrender', this.postcompose_.bind(this));
         this.getMap().renderSync();
       }
       this.layers_.push(layers[i]);
