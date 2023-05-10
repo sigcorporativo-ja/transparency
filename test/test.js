@@ -4,7 +4,7 @@ M.language.setLang('es');
 
 const map = M.map({
   container: 'mapjs',
-  controls: ['panzoom', 'scale', 'scaleline', 'rotate', 'location', 'getfeatureinfo'],
+  controls: ['panzoom', 'scale', 'scaleline', 'location', 'getfeatureinfo'],
 });
 
 const wfs = new M.layer.WFS({
@@ -21,7 +21,7 @@ map.addWFS(wfs);
 // 1 WMS y WMTS por url
 const pluginTransparency = new Transparency({
   position: 'TR',
-  layers: ['WMS*hil*http://www.ign.es/wms-inspire/unidades-administrativas?*AU.AdministrativeBoundary', 'WMTS*http://www.ign.es/wmts/pnoa-ma?*OI.OrthoimageCoverage*EPSG:25830*PNOA', 'WMTS*http://servicios.idee.es/wmts/mdt?*EL.GridCoverage*EPSG:25830*mdt'],
+  layers: ['WMS*hil*http://www.ign.es/wms-inspire/unidades-administrativas?*AU.AdministrativeBoundary', 'WMTS*http://www.ign.es/wmts/pnoa-ma?*OI.OrthoimageCoverage*EPSG:25830*PNOA'/*, 'WMTS*https://servicios.idee.es/wmts/mdt?*EL.GridCoverage*EPSG:25830*mdt'*/],
   radius: "",
   border: true,
 });

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="mapea" content="yes">
     <title>Transparency Production TEST</title>
-    <link href="http://mapea4-sigc.juntadeandalucia.es/mapea/assets/css/mapea-6.0.0.ol.min.css" rel="stylesheet" />
+    <link href="http://mapea4-sigc.juntadeandalucia.es/mapea/assets/css/mapea-6.3.1.ol.min.css" rel="stylesheet" />
     <link href="../dist/transparency.ol.min.css" rel="stylesheet" />
     <style rel="stylesheet">
         html,
@@ -23,15 +23,15 @@
 
 <body>
     <div id="mapjs" class="container"></div>
-    <script type="text/javascript" src="http://mapea4-sigc.juntadeandalucia.es/mapea/js/mapea-6.0.0.ol.min.js"></script>
-    <script type="text/javascript" src="http://mapea4-sigc.juntadeandalucia.es/mapea/js/configuration-6.0.0.js"></script>
+    <script type="text/javascript" src="http://mapea4-sigc.juntadeandalucia.es/mapea/js/mapea-6.3.1.ol.min.js"></script>
+    <script type="text/javascript" src="http://mapea4-sigc.juntadeandalucia.es/mapea/js/configuration-6.3.1.js"></script>
     <script type="text/javascript" src="../dist/transparency.ol.min.js"></script>
     <script type="text/javascript">
         const map = M.map({
             container: 'mapjs',
         });
         const mp = new M.plugin.Transparency({
-            layers: ['WMTS*http://www.ign.es/wmts/pnoa-ma?*OI.OrthoimageCoverage*EPSG:25830*PNOA', 'WMTS*http://servicios.idee.es/wmts/mdt?*EL.GridCoverage*EPSG:25830*mdt'],
+            layers: ['WMS*hil*http://www.ign.es/wms-inspire/unidades-administrativas?*AU.AdministrativeBoundary', 'WMTS*http://www.ign.es/wmts/pnoa-ma?*OI.OrthoimageCoverage*EPSG:25830*PNOA'],
         });
         map.addPlugin(mp);
     </script>
