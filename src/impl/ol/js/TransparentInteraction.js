@@ -1,3 +1,4 @@
+/* eslint-disable */
 /**
  * @module M/impl/control/TransparentInteraction
 
@@ -13,12 +14,9 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
    */
   constructor(options) {
     super(options);
+    this.handleDownEvent = setPosition.bind(this);
+    this.handleMoveEvent = setPosition.bind(this);
     this.layers_ = [];
-
-    ol.interaction.Pointer.call(this, {
-      handleDownEvent: this.setPosition,
-      handleMoveEvent: this.setPosition,
-    });
 
     // Default options
     const optionsE = options || {};
@@ -49,7 +47,7 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
       this.getMap().renderSync();
     }
 
-    ol.interaction.Pointer.prototype.setMap.call(this, map);
+    super.setMap(map);
 
     if (map) {
       for (i = 0; i < this.layers_.length; i += 1) {
@@ -109,21 +107,6 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
     }
   }
 
-  /** Set position of the clip
-   * @param {ol.Pixel|ol.MapBrowserEvent}
-   */
-  setPosition(e) {
-    if (e.pixel) {
-      this.pos = e.pixel;
-    } else if (e && e instanceof Array) {
-      this.pos = e;
-    } else {
-      e = [-10000000, -10000000];
-
-    }
-    if (this.getMap()) this.getMap().renderSync();
-  }
-
   /* @private
    */
   precompose_(e) {
@@ -158,5 +141,22 @@ export default class TransparentInteraction extends ol.interaction.Pointer {
    */
   setActive(b) {
     super.setActive(b);
+  }
+}
+
+ /** Set position of the clip
+   * @param {ol.Pixel|ol.MapBrowserEvent}
+   */
+function setPosition(e) {
+  if (e.pixel) {
+    this.pos = e.pixel;
+  } else if (e && e instanceof Array) {
+    this.pos = e;
+  } else {
+    e = [-10000000, -10000000];
+
+  }
+  if (this.getMap()) {
+    this.getMap().renderSync();
   }
 }
